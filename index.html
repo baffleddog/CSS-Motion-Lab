@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <title>CSS Motion Lab | 001</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+  <!-- ============ HEADER ============ -->
+  <header>
+    <div class="brand mono">
+      <span class="brand-symbol"></span>
+      <span>CSS MOTION LAB / 001</span>
+    </div>
+    <div class="status mono">EXPERIMENTS ACTIVE</div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div>
+      <!-- EDIT: your own label and year -->
+      <div class="eyebrow mono">INDEPENDENT STUDY — 2026</div>
+      <h1>CSS Motion<br><span>Lab.</span></h1>
+      <p class="intro">
+        An exploration of movement, form and interaction through pure CSS.
+        Eight experiments. Zero JavaScript. Hover over (or tap) each
+        experiment to change the rules.
+      </p>
+    </div>
+
+    <nav aria-label="Experiment navigation">
+      <ul class="index mono">
+        <li><a href="#e01">01 / Morphing</a></li>
+        <li><a href="#e02">02 / Orbit</a></li>
+        <li><a href="#e03">03 / Glitch</a></li>
+        <li><a href="#e04">04 / Waves</a></li>
+        <li><a href="#e05">05 / Perspective</a></li>
+        <li><a href="#e06">06 / Ripple</a></li>
+        <li><a href="#e07">07 / Typography</a></li>
+        <li><a href="#e08">08 / Rotation</a></li>
+      </ul>
+    </nav>
+  </section>
+
+  <!-- ============ EXPERIMENTS ============ -->
+  <main>
+    <div class="section-title mono">
+      <span>SELECT AN EXPERIMENT</span>
+      <span>08 STUDIES / CSS ONLY</span>
+    </div>
+
+    <div class="grid">
+
+      <!-- 01 Morphing -->
+      <article class="card" id="e01" tabindex="0">
+        <div class="stage"><div class="morph"></div></div>
+        <div class="info">
+          <div class="meta mono"><span>EXPERIMENT 01</span><span>TRANSFORM</span></div>
+          <h2>Morphing Shapes</h2>
+          <p>Border radius, rotation and scale transform a simple geometric form.</p>
+        </div>
+      </article>
+
+      <!-- 02 Orbit -->
+      <article class="card" id="e02" tabindex="0">
+        <div class="stage">
+          <div class="orbit"><span class="particle"></span></div>
+        </div>
+        <div class="info">
+          <div class="meta mono"><span>EXPERIMENT 02</span><span>ORBIT</span></div>
+          <h2>Particle Orbit</h2>
+          <p>Layered circular paths and a moving particle form a minimal orbital system.</p>
+        </div>
+      </article>
+
+      <!-- 03 Glitch -->
+      <article class="card" id="e03" tabindex="0">
+        <div class="stage"><div class="glitch">MOTION</div></div>
+        <div class="info">
+          <div class="meta mono"><span>EXPERIMENT 03</span><span>KEYFRAMES</span></div>
+          <h2>Glitch Typography</h2>
+          <p>Duplicated text layers shift rapidly to create digital distortion.</p>
+        </div>
+      </article>
+
+      <!-- 04 Waves: each bar has its own index (--i) that sets its delay -->
+      <article class="card" id="e04" tabindex="0">
+        <div class="stage">
+          <div class="waves" aria-hidden="true">
+            <i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i>
+            <i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i>
+            <i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i>
+            <i style="--i:12"></i><i style="--i:13"></i><i style="--i:14"></i><i style="--i:15"></i>
+            <i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19"></i>
+            <i style="--i:20"></i><i style="--i:21"></i><i style="--i:22"></i><i style="--i:23"></i>
+          </div>
+        </div>
+        <div class="info">
+          <div class="meta mono"><span>EXPERIMENT 04</span><span>SEQUENCING</span></div>
+          <h2>Wave Field</h2>
+          <p>Staggered animation delays transform a row of bars into a flowing wave.</p>
+        </div>
+      </article>
+
+      <!-- 05 Perspective -->
+      <article class="card" id="e05" tabindex="0">
+        <div class="stage"><div class="tilt"></div></div>
+        <div class="info">
+          <div class="meta mono"><span>EXPERIMENT 05</span><span>3D SPACE</span></div>
+          <h2>Perspective</h2>
+          <p>Three-dimensional transforms give a flat plane a sense of depth.</p>
+        </div>
+      </article>
+
+      <!-- 06 Ripple -->
+      <article class="card" id="e06" tabindex="0">
+        <div class="stage"><div class="rings"></div></div>
+        <div class="info">
+          <div class="meta mono"><span>EXPERIMENT 06</span><span>INFINITE LOOP</span></div>
+          <h2>Expanding Rings</h2>
+          <p>Repeating scale and opacity animations create an endless ripple.</p>
+        </div>
+      </article>
+
+      <!-- 07 Typography -->
+      <article class="card" id="e07" tabindex="0">
+        <div class="stage"><div class="magnet">FORM /</div></div>
+        <div class="info">
+          <div class="meta mono"><span>EXPERIMENT 07</span><span>TYPOGRAPHY</span></div>
+          <h2>Elastic Type</h2>
+          <p>Letter spacing and scale alter the rhythm of a word.</p>
+        </div>
+      </article>
+
+      <!-- 08 Rotation -->
+      <article class="card" id="e08" tabindex="0">
+        <div class="stage"><div class="loader"></div></div>
+        <div class="info">
+          <div class="meta mono"><span>EXPERIMENT 08</span><span>ROTATION</span></div>
+          <h2>Orbit Mechanism</h2>
+          <p>Concentric rings and rotation create a minimal mechanical study.</p>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="mono">
+    <span>BUILT WITH HTML &amp; CSS</span>
+    <span>MOVE YOUR CURSOR. CHANGE THE MOTION.</span>
+    <a href="#top">BACK TO TOP ↑</a>
+  </footer>
+
+</body>
+</html>

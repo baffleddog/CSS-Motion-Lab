@@ -1,0 +1,624 @@
+/* ==========================================================================
+   CSS MOTION LAB  (pure HTML + CSS, no JavaScript)
+
+   CONTENTS
+   01. Tokens
+   02. Base
+   03. Header
+   04. Hero
+   05. Grid & cards
+   06. Experiments
+       06.1 Morphing   06.2 Orbit   06.3 Glitch   06.4 Waves
+       06.5 Perspective   06.6 Ripple   06.7 Elastic type   06.8 Rotation
+   07. Footer
+   08. Responsive
+   09. Reduced motion
+   ========================================================================== */
+
+
+/* ==========================================================================
+   01. TOKENS
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  --bg:     #080808;
+  --panel:  #0d0d0d;
+  --line:   #292929;
+  --muted:  #858585;
+  --white:  #efefeb;
+}
+
+
+/* ==========================================================================
+   02. BASE
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--white);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 1px solid var(--white);
+  outline-offset: 3px;
+}
+
+/* small monospace label style used all over the page */
+.mono {
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+}
+
+#top {
+  scroll-margin-top: 20px;
+}
+
+
+/* ==========================================================================
+   03. HEADER
+   ========================================================================== */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 5%;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-symbol {
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+
+.brand-symbol::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: white;
+  border-radius: 50%;
+}
+
+.status {
+  color: #888;
+}
+
+
+/* ==========================================================================
+   04. HERO
+   ========================================================================== */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 40px;
+  padding: 100px 5% 70px;
+}
+
+.eyebrow {
+  color: var(--muted);
+}
+
+h1 {
+  margin: 30px 0;
+  font-size: clamp(58px, 10vw, 132px);
+  font-weight: 400;
+  letter-spacing: -0.085em;
+  line-height: 0.86;
+}
+
+h1 span {
+  color: #666;
+}
+
+.intro {
+  max-width: 410px;
+  color: #999;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+/* experiment index */
+.index {
+  min-width: 170px;
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.index li {
+  padding: 9px 0;
+  color: #777;
+  transition: color 0.2s;
+}
+
+.index li:hover {
+  color: white;
+}
+
+
+/* ==========================================================================
+   05. GRID & CARDS
+   ========================================================================== */
+
+main {
+  padding: 0 5% 100px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 17px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: #888;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding-top: 18px;
+}
+
+.card {
+  min-width: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  scroll-margin-top: 20px;
+  transition: border-color 0.35s;
+}
+
+/* "active" = hovered with a mouse, or tapped / focused on touch and keyboard */
+.card:is(:hover, :focus-within) {
+  border-color: #626262;
+}
+
+.card:focus-visible {
+  outline-offset: 2px;
+}
+
+/* the dark box with a faint grid where each experiment plays */
+.stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 290px;
+  overflow: hidden;
+  background-image:
+    linear-gradient(#ffffff05 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff05 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.stage::after {
+  content: "HOVER TO EXPLORE";
+  position: absolute;
+  bottom: 13px;
+  left: 15px;
+  color: #555;
+  font: 9px "Courier New", monospace;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+.info {
+  padding: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #777;
+}
+
+.info h2 {
+  margin: 18px 0 8px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.info p {
+  max-width: 340px;
+  margin: 0;
+  color: #888;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+
+/* ==========================================================================
+   06. EXPERIMENTS
+   ========================================================================== */
+
+/* ----- 06.1  Morphing shapes ----- */
+
+.morph {
+  width: 105px;
+  height: 105px;
+  background: #e5e5e0;
+  border-radius: 50%;
+  box-shadow: 0 0 35px #ffffff16;
+  transition: border-radius 0.8s, transform 0.8s, background 0.8s;
+}
+
+.card:is(:hover, :focus-within) .morph {
+  background: #aaa;
+  border-radius: 25% 50% 25% 50%;
+  transform: rotate(135deg) scale(1.2);
+}
+
+
+/* ----- 06.2  Particle orbit ----- */
+
+.orbit {
+  position: relative;
+  width: 145px;
+  height: 145px;
+  border: 1px solid #555;
+  border-radius: 50%;
+  transition: transform 1s;
+}
+
+.orbit::before,
+.orbit::after {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border: 1px solid #888;
+  border-radius: 50%;
+}
+
+.orbit::before {
+  transform: rotateX(65deg) rotate(35deg);
+}
+
+.orbit::after {
+  transform: rotateX(65deg) rotate(-35deg);
+}
+
+.particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 15px white;
+  transform: translate(-50%, -50%);
+}
+
+.card:is(:hover, :focus-within) .orbit {
+  transform: rotate(50deg) scale(1.08);
+}
+
+.card:is(:hover, :focus-within) .particle {
+  animation: orbit 2s linear infinite;
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(70px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(70px) rotate(-360deg); }
+}
+
+
+/* ----- 06.3  Glitch typography ----- */
+
+.glitch {
+  position: relative;
+  font-size: clamp(34px, 5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -4px;
+}
+
+/* two ghost copies of the word, hidden until active */
+.glitch::before,
+.glitch::after {
+  content: "MOTION";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.glitch::before {
+  color: #aaa;
+}
+
+.glitch::after {
+  color: #777;
+}
+
+.card:is(:hover, :focus-within) .glitch::before {
+  opacity: 0.8;
+  animation: glitch-a 0.25s steps(2, end) infinite;
+}
+
+.card:is(:hover, :focus-within) .glitch::after {
+  opacity: 0.8;
+  animation: glitch-b 0.3s steps(2, end) infinite;
+}
+
+@keyframes glitch-a {
+  0%   { transform: translate(-4px, -2px); }
+  50%  { transform: translate(4px, 2px); }
+  100% { transform: translate(-2px, 1px); }
+}
+
+@keyframes glitch-b {
+  0%   { transform: translate(4px, 2px); }
+  50%  { transform: translate(-3px, -1px); }
+  100% { transform: translate(2px, 1px); }
+}
+
+
+/* ----- 06.4  Wave field -----
+   Every bar is the same animation. Each bar's --i number (set in the HTML)
+   shifts it a little further along, so the bars move one after another
+   and form a wave. */
+
+.waves {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  height: 120px;
+}
+
+.waves i {
+  flex: 0 0 4px;
+  height: 100%;
+  background: #ddd;
+  border-radius: 4px;
+  transform: scaleY(0.12);
+  animation: wave 1.2s ease-in-out infinite alternate paused;
+  animation-delay: calc(var(--i) * -0.06s);   /* keep this AFTER the shorthand above */
+}
+
+/* paused until the card is active, then the wave flows */
+.card:is(:hover, :focus-within) .waves i {
+  animation-play-state: running;
+}
+
+@keyframes wave {
+  from { transform: scaleY(0.12); }
+  to   { transform: scaleY(1); }
+}
+
+
+/* ----- 06.5  Perspective ----- */
+
+.tilt {
+  width: 125px;
+  height: 160px;
+  background: linear-gradient(135deg, #ffffff24, #ffffff02 50%, #ffffff12);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 35px #ffffff08;
+  transition: transform 0.65s, box-shadow 0.65s;
+}
+
+.card:is(:hover, :focus-within) .tilt {
+  box-shadow: 15px 20px 35px #ffffff14;
+  transform: perspective(500px) rotateY(-25deg) rotateX(12deg) rotateZ(-6deg);
+}
+
+
+/* ----- 06.6  Expanding rings ----- */
+
+.rings {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border: 1px solid #eee;
+  border-radius: 50%;
+}
+
+.rings::before,
+.rings::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.card:is(:hover, :focus-within) .rings::before {
+  animation: ripple 2s ease-out infinite;
+}
+
+.card:is(:hover, :focus-within) .rings::after {
+  animation: ripple 2s 1s ease-out infinite;   /* starts 1s later */
+}
+
+@keyframes ripple {
+  0%   { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 0;   transform: scale(2.5); }
+}
+
+
+/* ----- 06.7  Elastic typography ----- */
+
+.magnet {
+  font-size: 38px;
+  letter-spacing: -3px;
+  transition: letter-spacing 0.5s, transform 0.5s;
+}
+
+.card:is(:hover, :focus-within) .magnet {
+  letter-spacing: 5px;
+  transform: scale(1.08);
+}
+
+
+/* ----- 06.8  Rotating mechanism ----- */
+
+.loader {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #555;
+  border-top: 2px solid white;
+  border-radius: 50%;
+}
+
+.loader::before {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border: 1px dashed #666;
+  border-radius: 50%;
+}
+
+.loader::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  width: 7px;
+  height: 7px;
+  background: white;
+  border-radius: 50%;
+}
+
+.card:is(:hover, :focus-within) .loader {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+
+/* ==========================================================================
+   07. FOOTER
+   ========================================================================== */
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 0 5%;
+  padding: 22px 0 30px;
+  border-top: 1px solid var(--line);
+  color: #777;
+}
+
+footer a:hover {
+  color: white;
+}
+
+
+/* ==========================================================================
+   08. RESPONSIVE
+   ========================================================================== */
+
+/* wide screens: 4 columns, experiments 1 and 4 are double width */
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .card:nth-child(1),
+  .card:nth-child(4) {
+    grid-column: span 2;
+  }
+}
+
+/* phones */
+@media (max-width: 650px) {
+  header {
+    align-items: flex-start;
+  }
+
+  .status {
+    text-align: right;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding-top: 65px;
+  }
+
+  .index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+
+  .index li {
+    padding: 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stage {
+    height: 245px;
+  }
+
+  .section-title {
+    font-size: 9px;
+  }
+}
+
+
+/* ==========================================================================
+   09. REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
